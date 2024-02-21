@@ -1,0 +1,20 @@
+{
+  "name": "airquality-web",
+  "version": "1.0.0",
+  "description": "Website Hub for Air Quality Devices of Cyb Robotics",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cyb Robotics Organization",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-ws": "^5.0.2",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.1.0",
+    "socket.io": "^4.7.4"
+  }
+}

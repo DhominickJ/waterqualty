@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Air Quality by Cyb Org</title>
+        <link rel="stylesheet" href="index.css" />
+    </head>
+    <body>
+        <div class="global-container">
+            <section class="main-display">
+                <p class="date-time">Today | Saturday, January 12, 2024</p>
+                <h2 class="location">Iloilo City</h2>
+                <div class="aqi">
+                    <h1>21</h1>
+                    <p>AQI</p>
+                </div>
+                <h3 class="quality-indicator">Excellent</h3>
+                <p class="description">
+                    The air quality is generally acceptable for most
+                    individuals. However, sensitive groups may experience minor
+                    to moderate symptoms from long term exposure.
+                </p>
+            </section>
+
+            <section class="other-stats">
+                <div class="stat">
+                    <p>Temperature</p>
+                    <h3 id="stat-temperature">0°</h3>
+                </div>
+                <div class="stat">
+                    <p>Humidity</p>
+                    <h3 id="stat-humidity">0</h3>
+                </div>
+                <div class="stat">
+                    <p>Carbon Monoxide</p>
+                    <h3 id="stat-carbonMonoxide">0</h3>
+                </div>
+                <!-- <div class="stat">
+                    <p>Flammable Gases</p>
+                    <h3 id="stat-gascontent">24</h3>
+                </div> -->
+                <div class="stat">
+                    <p>Ozone</p>
+                    <h3 id="stat-ozone">0</h3>
+                </div>
+            </section>
+
+            <footer>
+                <svg class="icon"></svg>
+
+                <button class="disconnect" title="Refreshes all sensor connections">Refresh Sensors</button>
+                <h2>Air Quality</h2>
+                <p>by Cyb Robotics</p>
+            </footer>
+        </div>
+
+        <script>
+            // Connect to the WebSocket channel for the browser
+            const socket = new WebSocket("<%= ip %>/browser");
+
+            socket.addEventListener("open", (event) => {
+                console.log("Connected to WebSocket channel for the browser");
+            });
+
+            document.querySelector('.disconnect').addEventListener('click', disconnectAll);
+
+            function disconnectAll() {
+                console.log('disconnecting all sensors...');
+                socket.send('disconnect-all');
+            }
+
+            socket.addEventListener("message", (msg) => {
+                const sensors = JSON.parse(msg["data"]);
+
+                sensors.forEach((sensor) => {
+                    
+                    console.clear();
+                    // console.log(JSON.stringify(sensor));
+                    console.log(`Sensor ${sensor.id}: ${sensor.timeout}`)
+
+                    document.querySelector(
+                        "#stat-temperature"
+                    ).innerHTML = `${Math.round(sensor.temperature)}°`;
+
+                    document.querySelector(
+                        "#stat-humidity"
+                    ).innerHTML = `${Math.round(sensor.humidity)}`;
+
+                    // document.querySelector(
+                    //     "#stat-carbonMonoxide"
+                    // ).innerHTML = `${Math.round(sensor.carbonMonoxide)}`;
+
+                    // document.querySelector(
+                    //     "#stat-ozone"
+                    // ).innerHTML = `${Math.round(sensor.ozone)}`;
+                    // document.querySelector('#stat-gascontent').innerHTML = `${Math.round(sensor.gasConcentration)}`;
+                });
+            });
+
+            socket.addEventListener("close", (event) => {});
+        </script>
+    </body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Air Quality by Cyb Robotics</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="db.css" />
+    <link rel="stylesheet" href="normalize.css" />
+  </head>
+  <body>
+    <!-- <p>Connected sensors:</p> -->
+    <p id="sensors"></p>
+    <div id="sensor-list"></div>
+
+    <header>
+      <a href="/index.html">
+        <i class="bx bxs-folder-open bx-tada-hover"></i>
+        <h2>Cyb Robotics: Air Quality</h2>
+      </a>
+      <br />
+      <br />
+      <div class="navbar">
+        <ul>
+          <li>
+            <a href="#" class="active"
+              ><i class="bx bx-home" id="floating_icons"></i>Home</a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><i class="bx bxs-user" id="floating_icons"></i>About Us</a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><i class="bx bxs-user" id="floating_icons"></i>Meet Us</a
+            >
+          </li>
+        </ul>
+        <!-- <input type="text"><i class='bx bx-search-alt'></i></input> -->
+      </div>
+      <div class="toggle" id="menu-icon">
+        <button onclick="openNav()">
+          <i class="bx bx-menu-alt-right"></i>
+        </button>
+      </div>
+    </header>
+    <div class="grid_container">
+      <div class="body_sensor_ui">
+        <div class="sensor_box_1"></div>
+        <div class="sensor_box_2"></div>
+        <div class="sensor_box_3"></div>
+        <div class="sensor_box_4"></div>
+        <div class="sensor_box_5"></div>
+        <div class="sensor_box_6"></div>
+      </div>
+      <!-- <div class="history_navigation">
+
+    </div><br>
+    <div class="sensor_navigation"> -->
+      <!-- Hello World -->
+      <!-- </div> -->
+    </div>
+
+    <script>
+      // Connect to the WebSocket channel for the browser
+      const socket = new WebSocket("ws://localhost:1337/browser");
+
+      socket.addEventListener("open", (event) => {
+        console.log("Connected to WebSocket channel for the browser");
+      });
+
+      socket.addEventListener("message", (msg) => {
+        const sensors = JSON.parse(msg["data"]);
+
+        document.querySelector("#sensor-list").innerHTML = "";
+        sensors.forEach((sensor) => {
+          const p = document.createElement("p");
+          p.innerHTML = sensor.id;
+
+          const btn = document.createElement("button");
+          btn.innerHTML = "Connect";
+
+          btn.onclick = () => {
+            console.log(
+              `Temperature: ${sensor.temperature}°C\nHumidity: ${sensor.humidity}g/kg\nGas Concentration: ${sensor.gasConcentration}ppm`
+            );
+          };
+
+          document.querySelector("#sensor-list").append(p, btn);
+        });
+        // document.querySelector('#sensor-list').innerHTML = JSON.parse(msg['data']).map(data => { return "<p>" + data + "</p><button>Connect</button>"});
+      });
+
+      socket.addEventListener("close", (event) => {});
+    </script>
+  </body>
+</html>
