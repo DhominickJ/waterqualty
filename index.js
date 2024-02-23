@@ -15,7 +15,7 @@ app.use(express.static("client"));
 const PORT = process.env.PORT || 1337;
 // const ip = '192.168.43.119';
 // const ip = '192.168.3.156';
-const ip ="192.168.95.200";
+const ip ="192.168.43.114";
 
 
 const SENSORS = new Set();

@@ -2,7 +2,7 @@
 #include <WebSocketsClient.h>
 
 // WiFi configuration
-#include <ESP8266WiFi.h>
+// #include <ESP8266WiFi.h>
 #include <ArduinoJson.h>
 
 #include <DHTesp.h>
@@ -27,7 +27,7 @@ WebSocketsClient webSocket;
 // const char *ssid = "Sumi~";
 // const char *password = "dhominickjohn";
 
-const char *serverAddress = "192.168.95.200";
+const char *serverAddress = "192.168.43.114";
 
 const uint16_t port = 1337;
 const char *url = "/esp";
@@ -253,7 +253,7 @@ void sendUniqueID()
 {
   // Send chip id to server for id
   // String uniqID = String(ESP.getChipId(), HEX);
-  String uniqID = String(ESP.getChipId(), HEX);
+  String uniqID = String(ESP.getChipModel(), HEX);
 
   Serial.printf("Sent chip id to server: %s\n", uniqID.c_str());
 

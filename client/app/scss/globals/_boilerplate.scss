@@ -1,0 +1,24 @@
+@use "colors" as c;
+@use "typography" as ty;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  font: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+body {
+  font-family: var(--font-family-default);
+  font-size: var(--fs-400);
+  color: var(--clr-neutral-700);
+}
