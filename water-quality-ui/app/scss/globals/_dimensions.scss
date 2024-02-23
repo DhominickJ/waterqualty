@@ -1,0 +1,6 @@
+@use "../utils/functions" as f;
+
+$widths: (
+  "mobile": f.rem(375),
+  "desktop": f.rem(1440),
+);
