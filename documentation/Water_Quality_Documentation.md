@@ -1,6 +1,14 @@
 ## Water Quality Documentation
 ==============================================================
 
+# Features of Application:
+    - Automatic WiFi Connection Interface
+    - Interactive UI System featuring Sensor Information
+    - Real-time Connection Interface for the Model Type via WebSocket
+    - Locally Hosted Server Interface
+    - Automatic Database Schematics Modelling
+    - Confirmed Working with Different Devices such as Website, Mobile, PC, etc.
+
 ## Important Notes to Consider: 
 
 Server : NodeMCU 
@@ -57,7 +65,7 @@ Important Variables to Consider:
             - Further work needed for porting the Water Related Sensors
         
 
-Progress Work:
+February 15 - 18, 2024:
 
     - Node MCU
         

@@ -37,10 +37,12 @@ app.ws("/esp", (ws) => {
     ws.averageData = {
         temperature: 0,
         humidity: 0,
+        waterQuality: 0,
     };
     ws.tempData = {
         temperature: 0,
         humidity: 0,
+        waterQuality: 0,
     };
 
 
@@ -127,7 +129,8 @@ app.get("/db", (req, res) => {
 // For averaging_values for database_entries
 var average_temp = 0;
 var average_humid = 0;
-var average_gasCon = 0;
+// var average_gasCon = 0;
+var waterQuality = 0;
 
 var average_counter = 0;
 
@@ -193,6 +196,7 @@ setInterval(() => {
                         humidity: sensor.averageData.humidity,
                         // ozone: sensor.averageData.ozone,
                         // carbonMonoxide: sensor.averageData.carbonMonoxide,
+                        waterQuality: averageData.waterQuality,
                     });
                     
                     
@@ -215,13 +219,16 @@ setInterval(() => {
                     // sensor.averageData.carbonMonoxide = 0;
                 }
             }
-
+            // Calculate the values of the water quality score based on the values of the sensor
+            waterQuality = sensor.temperature * 0.50 
             average_temp += sensor.temperature;
             average_humid += sensor.humidity;
             // average_gasCon += sensor.gasConcentration;
             average_counter++;
 
-            sensor.timeout++;       
+            sensor.timeout++;
+            
+            
         }    
     });
 

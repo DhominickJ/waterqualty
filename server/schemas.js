@@ -8,6 +8,7 @@ const sensorDataSchema = new mongoose.Schema({
     humidity: Number,
     // ozone: Number,
     // carbonMonoxide: Number,
+    waterQuality: Number,
     timestamp: { type: Date, default: Date.now },
 });
 
